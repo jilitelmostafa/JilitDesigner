@@ -55,7 +55,7 @@ const App: React.FC = () => {
             </div>
           </section>
 
-          <Contact />
+          <Contact isDark={isDark} />
         </main>
 
         <footer className="py-12 bg-gray-50 dark:bg-slate-950 border-t border-gray-100 dark:border-slate-900">
