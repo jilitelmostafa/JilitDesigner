@@ -1,38 +1,52 @@
 
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 import { DESIGNER_INFO } from '../constants';
-import { Mail, Phone, MapPin, Instagram, Linkedin, MessageCircle, Twitter, Facebook } from 'lucide-react';
+import { Mail, Phone, MapPin, Instagram, Linkedin, MessageCircle, Twitter, Facebook, Star, Quote } from 'lucide-react';
 
 interface ContactProps {
   isDark: boolean;
 }
 
+const TESTIMONIALS = [
+  {
+    id: 1,
+    name: 'أحمد العتبي',
+    role: 'رائد أعمال',
+    content: 'تصميمات مبهرة واحترافية عالية جداً، المصطفى فنان حقيقي يهتم بأدق التفاصيل ويقدم جودة تفوق التوقعات دائماً.',
+    rating: 5
+  },
+  {
+    id: 2,
+    name: 'سارة المحمدي',
+    role: 'كاتبة وروائية',
+    content: 'طلبت تصميم غلاف لكتابي الجديد وكانت النتيجة مذهلة. استطاع المصمم تحويل روح الرواية إلى صورة فنية جذابة.',
+    rating: 5
+  },
+  {
+    id: 3,
+    name: 'يوسف بناني',
+    role: 'صاحب شركة تسويق',
+    content: 'سرعة في التنفيذ وجودة عالمية. الفلايرات التي صممها لنا زادت من نسبة التفاعل والوصول لعملائنا بشكل ملحوظ.',
+    rating: 5
+  },
+  {
+    id: 4,
+    name: 'منى الوجداني',
+    role: 'مدربة معتمدة',
+    content: 'تعامل راقي وذوق رفيع في اختيار الألوان. تصاميم الشواهد للدورات التي أقدمها نالت إعجاب جميع المتدربين.',
+    rating: 5
+  },
+  {
+    id: 5,
+    name: 'خالد الصاوي',
+    role: 'مدير مطعم',
+    content: 'أفضل مصمم تعاملت معه، يفهم الفكرة من أول مرة ويحولها لواقع بصري قوي. احترافية تامة في المواعيد والجودة.',
+    rating: 5
+  }
+];
+
 const Contact: React.FC<ContactProps> = ({ isDark }) => {
-  const [activeTab, setActiveTab] = useState<'X' | 'FB'>('X');
   const googleMapsUrl = `https://www.google.com/maps/place/Mohammedia,+Morocco`;
-  const twitterContainerRef = useRef<HTMLDivElement>(null);
-  const fbContainerRef = useRef<HTMLDivElement>(null);
-
-  // Function to reload social widgets
-  const reloadWidgets = () => {
-    // Reload Twitter/X
-    if ((window as any).twttr && (window as any).twttr.widgets) {
-      (window as any).twttr.widgets.load(twitterContainerRef.current);
-    }
-    // Reload Facebook
-    if ((window as any).FB) {
-      (window as any).FB.XFBML.parse(fbContainerRef.current);
-    }
-  };
-
-  // Re-run whenever tab or theme changes
-  useEffect(() => {
-    // Short delay to ensure the DOM element is rendered and has width
-    const timer = setTimeout(() => {
-      reloadWidgets();
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [activeTab, isDark]);
 
   return (
     <section id="contact" className="py-24 bg-white dark:bg-slate-950 transition-colors overflow-hidden border-t border-gray-50 dark:border-white/5">
@@ -42,9 +56,9 @@ const Contact: React.FC<ContactProps> = ({ isDark }) => {
           <div className="space-y-12">
             <div className="space-y-6 text-right">
               <h3 className="text-[#1abf96] dark:text-[#1abf96] font-bold uppercase tracking-widest text-sm">تواصل معي</h3>
-              <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white">ابقَ على اتصال</h2>
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white">لنبدأ مشروعك القادم</h2>
               <p className="text-gray-500 dark:text-gray-400 text-lg leading-relaxed">
-                تابع آخر أعمالي وتحديثاتي عبر منصات التواصل الاجتماعي، أو تواصل معي مباشرة عبر القنوات المتاحة أدناه.
+                سواء كنت بحاجة إلى هوية بصرية كاملة، فلايرات إبداعية، أو أغلفة كتب مميزة، أنا هنا لمساعدتك في تحقيق رؤيتك.
               </p>
             </div>
 
@@ -53,7 +67,7 @@ const Contact: React.FC<ContactProps> = ({ isDark }) => {
                 <div className="w-14 h-14 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center text-[#1abf96] shadow-sm group-hover:bg-[#1abf96] group-hover:text-white transition-all">
                   <Mail size={24} />
                 </div>
-                <div className="text-right">
+                <div className="text-right flex-grow">
                   <p className="text-sm text-gray-400 dark:text-gray-500 font-bold uppercase mb-1">البريد الإلكتروني</p>
                   <a href={`mailto:${DESIGNER_INFO.email}`} className="text-lg font-bold text-slate-900 dark:text-white hover:text-[#1abf96] transition-colors">{DESIGNER_INFO.email}</a>
                 </div>
@@ -63,7 +77,7 @@ const Contact: React.FC<ContactProps> = ({ isDark }) => {
                 <div className="w-14 h-14 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center text-[#1abf96] shadow-sm group-hover:bg-[#1abf96] group-hover:text-white transition-all">
                   <Phone size={24} />
                 </div>
-                <div className="text-right">
+                <div className="text-right flex-grow">
                   <p className="text-sm text-gray-400 dark:text-gray-500 font-bold uppercase mb-1">الهاتف / واتساب</p>
                   <a href={`tel:${DESIGNER_INFO.phone}`} className="text-lg font-bold text-slate-900 dark:text-white hover:text-[#1abf96] transition-colors">{DESIGNER_INFO.phone}</a>
                 </div>
@@ -78,7 +92,7 @@ const Contact: React.FC<ContactProps> = ({ isDark }) => {
                 <div className="w-14 h-14 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center text-[#1abf96] shadow-sm group-hover:bg-[#1abf96] group-hover:text-white transition-all">
                   <MapPin size={24} />
                 </div>
-                <div className="text-right">
+                <div className="text-right flex-grow">
                   <p className="text-sm text-gray-400 dark:text-gray-500 font-bold uppercase mb-1">الموقع</p>
                   <p className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-[#1abf96] transition-colors">{DESIGNER_INFO.location}</p>
                 </div>
@@ -104,92 +118,57 @@ const Contact: React.FC<ContactProps> = ({ isDark }) => {
             </div>
           </div>
 
-          {/* Right Side: Integrated Social Feed Box */}
-          <div className="bg-gray-50 dark:bg-slate-900 rounded-[3rem] p-4 relative border border-gray-100 dark:border-white/5 shadow-xl dark:shadow-2xl overflow-hidden min-h-[700px] flex flex-col">
-            {/* Custom Tabs Header */}
-            <div className="flex items-center justify-between px-2 mb-4 bg-white dark:bg-slate-800 p-2 rounded-full shadow-inner z-10">
-               <button 
-                 onClick={() => setActiveTab('FB')}
-                 className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-black text-sm transition-all duration-300 ${
-                   activeTab === 'FB' 
-                     ? 'bg-[#1877F2] text-white shadow-lg' 
-                     : 'text-gray-400 hover:text-[#1877F2]'
-                 }`}
-               >
-                 <Facebook size={18} />
-                 منشورات فيسبوك
-               </button>
-               <button 
-                 onClick={() => setActiveTab('X')}
-                 className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-black text-sm transition-all duration-300 ${
-                   activeTab === 'X' 
-                     ? 'bg-slate-900 dark:bg-black text-white shadow-lg' 
-                     : 'text-gray-400 hover:text-slate-900 dark:hover:text-white'
-                 }`}
-               >
-                 <Twitter size={18} />
-                 تغريدات X
-               </button>
-            </div>
-            
-            {/* Content Container - Ensure full width and centering */}
-            <div className="flex-grow overflow-y-auto rounded-[2rem] bg-white dark:bg-slate-950 custom-scrollbar flex flex-col items-center relative min-h-[550px]">
-               
-               {/* Twitter Feed */}
-               <div 
-                 ref={twitterContainerRef}
-                 className={`w-full px-2 pt-2 animate-in fade-in duration-500 transition-all ${activeTab === 'X' ? 'block' : 'hidden'}`}
-               >
-                 <a 
-                   className="twitter-timeline" 
-                   data-height="580" 
-                   data-theme={isDark ? "dark" : "light"} 
-                   data-chrome="noheader nofooter noborders transparent"
-                   data-width="100%"
-                   href="https://twitter.com/jilitmostafa?ref_src=twsrc%5Etfw"
-                 >
-                   <div className="flex flex-col items-center justify-center py-20 text-gray-400 gap-4">
-                     <div className="w-8 h-8 border-4 border-[#1abf96] border-t-transparent rounded-full animate-spin"></div>
-                     <p>جاري تحميل تغريدات X...</p>
-                   </div>
-                 </a>
-               </div>
-
-               {/* Facebook Feed */}
-               <div 
-                 ref={fbContainerRef}
-                 className={`w-full h-full flex justify-center pt-2 animate-in fade-in duration-500 transition-all ${activeTab === 'FB' ? 'block' : 'hidden'}`}
-               >
-                  <div 
-                    className="fb-page" 
-                    data-href="https://www.facebook.com/jilitelmostafa/" 
-                    data-tabs="timeline" 
-                    data-width="500" 
-                    data-height="580" 
-                    data-small-header="false" 
-                    data-adapt-container-width="true" 
-                    data-hide-cover="false" 
-                    data-show-facepile="true"
-                  >
-                    <blockquote cite="https://www.facebook.com/jilitelmostafa/" className="fb-xfbml-parse-ignore">
-                      <div className="flex flex-col items-center justify-center py-20 text-gray-400 gap-4">
-                        <div className="w-8 h-8 border-4 border-[#1877F2] border-t-transparent rounded-full animate-spin"></div>
-                        <p>جاري تحميل منشورات فيسبوك...</p>
-                      </div>
-                    </blockquote>
+          {/* Right Side: Customer Reviews Box */}
+          <div className="bg-gray-50 dark:bg-slate-900 rounded-[3rem] p-8 relative border border-gray-100 dark:border-white/5 shadow-xl dark:shadow-2xl flex flex-col min-h-[700px]">
+            <div className="flex items-center justify-between mb-8">
+               <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-[#1abf96]/10 rounded-full flex items-center justify-center text-[#1abf96]">
+                    <Quote size={20} />
                   </div>
+                  <h3 className="text-2xl font-black text-slate-900 dark:text-white">تقييمات العملاء</h3>
+               </div>
+               <div className="flex items-center gap-1 bg-white dark:bg-slate-800 px-4 py-1 rounded-full border border-gray-100 dark:border-white/5">
+                 <span className="font-bold text-[#1abf96]">5.0</span>
+                 <Star size={14} className="fill-[#1abf96] text-[#1abf96]" />
                </div>
             </div>
-            
-            <div className="p-4 text-center mt-auto border-t border-gray-100 dark:border-white/5">
-               <p className="text-xs text-gray-400 font-bold mb-1">ابقَ على اطلاع دائم بآخر أعمالي</p>
-               <a 
-                 href={activeTab === 'X' ? "https://x.com/jilitmostafa" : "https://facebook.com/jilitelmostafa"} 
-                 target="_blank" 
-                 rel="noopener noreferrer"
-                 className={`text-sm font-black transition-colors ${activeTab === 'X' ? 'text-slate-800 dark:text-white' : 'text-[#1877F2]'}`}
-               >
-                 {activeTab === 'X' ? "@jilitmostafa" : "Jilit Designer Page"}
+
+            <div className="flex-grow space-y-4 overflow-y-auto custom-scrollbar pr-2">
+              {TESTIMONIALS.map((review) => (
+                <div 
+                  key={review.id} 
+                  className="bg-white dark:bg-slate-800 p-6 rounded-[2rem] border border-gray-100 dark:border-white/5 shadow-sm hover:shadow-md transition-shadow group"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 dark:bg-slate-700 rounded-full flex items-center justify-center font-bold text-[#1abf96]">
+                        {review.name[0]}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-slate-900 dark:text-white leading-tight">{review.name}</h4>
+                        <p className="text-[10px] text-gray-400 uppercase font-bold">{review.role}</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-0.5">
+                      {[...Array(review.rating)].map((_, i) => (
+                        <Star key={i} size={14} className="fill-[#1abf96] text-[#1abf96]" />
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed italic">
+                    "{review.content}"
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 p-6 bg-[#1abf96] rounded-[2rem] text-white flex items-center justify-between">
+               <div className="space-y-1">
+                 <p className="font-black">هل أنت معجب بما تراه؟</p>
+                 <p className="text-xs text-teal-50">انضم لأكثر من 1000 عميل سعيد</p>
+               </div>
+               <a href={`tel:${DESIGNER_INFO.phone}`} className="bg-white text-[#1abf96] px-6 py-2 rounded-full font-black text-sm hover:scale-105 transition-transform">
+                 اتصل الآن
                </a>
             </div>
           </div>
