@@ -53,6 +53,16 @@
         -ms-overflow-style: none;  /* IE and Edge */
         scrollbar-width: none;  /* Firefox */
       }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #1abf96;
+        border-radius: 10px;
+      }
     </style>
   <script type="importmap">
 {
@@ -66,6 +76,9 @@
 </script>
 <!-- Twitter/X Widget Script -->
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<!-- Facebook SDK -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ar_AR/sdk.js#xfbml=1&version=v17.0"></script>
 </head>
   <body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-gray-100 transition-colors duration-300">
     <div id="root"></div>

@@ -1,21 +1,27 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DESIGNER_INFO } from '../constants';
-import { Mail, Phone, MapPin, Instagram, Linkedin, MessageCircle, Twitter } from 'lucide-react';
+import { Mail, Phone, MapPin, Instagram, Linkedin, MessageCircle, Twitter, Facebook } from 'lucide-react';
 
 interface ContactProps {
   isDark: boolean;
 }
 
 const Contact: React.FC<ContactProps> = ({ isDark }) => {
+  const [activeTab, setActiveTab] = useState<'X' | 'FB'>('X');
   const googleMapsUrl = `https://www.google.com/maps/place/Mohammedia,+Morocco`;
 
-  // Force Twitter widget to re-render or update theme if possible
+  // Handle re-parsing of social widgets when tab or theme changes
   useEffect(() => {
+    // Refresh Twitter
     if ((window as any).twttr && (window as any).twttr.widgets) {
       (window as any).twttr.widgets.load();
     }
-  }, [isDark]);
+    // Refresh Facebook
+    if ((window as any).FB) {
+      (window as any).FB.XFBML.parse();
+    }
+  }, [isDark, activeTab]);
 
   return (
     <section id="contact" className="py-24 bg-white dark:bg-slate-950 transition-colors overflow-hidden border-t border-gray-50 dark:border-white/5">
@@ -27,7 +33,7 @@ const Contact: React.FC<ContactProps> = ({ isDark }) => {
               <h3 className="text-[#1abf96] dark:text-[#1abf96] font-bold uppercase tracking-widest text-sm">تواصل معي</h3>
               <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white">ابقَ على اتصال</h2>
               <p className="text-gray-500 dark:text-gray-400 text-lg leading-relaxed">
-                أشارككم آخر أخباري وتصاميمي ونصائحي في عالم الجرافيك عبر منصة X. تواصل معي مباشرة عبر القنوات المتاحة أدناه.
+                تابع آخر أعمالي وتحديثاتي عبر منصات التواصل الاجتماعي، أو تواصل معي مباشرة عبر القنوات المتاحة أدناه.
               </p>
             </div>
 
@@ -75,6 +81,9 @@ const Contact: React.FC<ContactProps> = ({ isDark }) => {
               <a href="https://www.linkedin.com/in/Jilitelmostafa" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-[#1abf96] text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform">
                 <Linkedin size={24} />
               </a>
+              <a href="https://facebook.com/jilitelmostafa" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-[#1877F2] text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                <Facebook size={24} />
+              </a>
               <a href="https://instagram.com/jilitsig" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform">
                 <Instagram size={24} />
               </a>
@@ -84,33 +93,77 @@ const Contact: React.FC<ContactProps> = ({ isDark }) => {
             </div>
           </div>
 
-          {/* Right Side: Twitter Timeline Box */}
-          <div className="bg-gray-50 dark:bg-slate-900 rounded-[3rem] p-4 relative border border-gray-100 dark:border-white/5 shadow-xl dark:shadow-2xl overflow-hidden min-h-[600px] flex flex-col">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-white/10 mb-2">
-               <Twitter className="text-[#1abf96]" size={20} />
-               <span className="font-black text-slate-800 dark:text-white">آخر التغريدات</span>
+          {/* Right Side: Integrated Social Feed Box */}
+          <div className="bg-gray-50 dark:bg-slate-900 rounded-[3rem] p-4 relative border border-gray-100 dark:border-white/5 shadow-xl dark:shadow-2xl overflow-hidden min-h-[650px] flex flex-col">
+            {/* Custom Tabs Header */}
+            <div className="flex items-center justify-between px-2 mb-4 bg-white dark:bg-slate-800 p-2 rounded-full shadow-inner">
+               <button 
+                 onClick={() => setActiveTab('FB')}
+                 className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-black text-sm transition-all duration-300 ${
+                   activeTab === 'FB' 
+                     ? 'bg-[#1877F2] text-white shadow-lg translate-x-0' 
+                     : 'text-gray-400 hover:text-[#1877F2]'
+                 }`}
+               >
+                 <Facebook size={18} />
+                 منشورات فيسبوك
+               </button>
+               <button 
+                 onClick={() => setActiveTab('X')}
+                 className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-black text-sm transition-all duration-300 ${
+                   activeTab === 'X' 
+                     ? 'bg-slate-900 dark:bg-black text-white shadow-lg translate-x-0' 
+                     : 'text-gray-400 hover:text-slate-900 dark:hover:text-white'
+                 }`}
+               >
+                 <Twitter size={18} />
+                 تغريدات X
+               </button>
             </div>
             
-            <div className="flex-grow overflow-y-auto rounded-2xl custom-scrollbar">
-               <a 
-                 className="twitter-timeline" 
-                 data-height="550" 
-                 data-theme={isDark ? "dark" : "light"} 
-                 data-chrome="noheader nofooter noborders transparent"
-                 href="https://twitter.com/jilitmostafa?ref_src=twsrc%5Etfw"
-               >
-                 جاري تحميل التغريدات من @jilitmostafa...
-               </a>
+            <div className="flex-grow overflow-y-auto rounded-[2rem] bg-white dark:bg-slate-950 custom-scrollbar flex flex-col items-center">
+               {activeTab === 'X' ? (
+                 <div className="w-full px-4 pt-4 animate-in fade-in duration-500">
+                   <a 
+                     className="twitter-timeline" 
+                     data-height="530" 
+                     data-theme={isDark ? "dark" : "light"} 
+                     data-chrome="noheader nofooter noborders transparent"
+                     href="https://twitter.com/jilitmostafa?ref_src=twsrc%5Etfw"
+                   >
+                     جاري تحميل التغريدات...
+                   </a>
+                 </div>
+               ) : (
+                 <div className="w-full h-full flex justify-center pt-2 animate-in fade-in duration-500 overflow-hidden">
+                    <div 
+                      className="fb-page" 
+                      data-href="https://www.facebook.com/jilitelmostafa/" 
+                      data-tabs="timeline" 
+                      data-width="500" 
+                      data-height="550" 
+                      data-small-header="false" 
+                      data-adapt-container-width="true" 
+                      data-hide-cover="false" 
+                      data-show-facepile="true"
+                    >
+                      <blockquote cite="https://www.facebook.com/jilitelmostafa/" className="fb-xfbml-parse-ignore">
+                        <a href="https://www.facebook.com/jilitelmostafa/">Jilit Designer - المصطفى جليط</a>
+                      </blockquote>
+                    </div>
+                 </div>
+               )}
             </div>
             
             <div className="p-4 text-center">
+               <p className="text-xs text-gray-400 font-bold mb-1">ابقَ على اطلاع دائم بآخر أعمالي</p>
                <a 
-                 href="https://x.com/jilitmostafa" 
+                 href={activeTab === 'X' ? "https://x.com/jilitmostafa" : "https://facebook.com/jilitelmostafa"} 
                  target="_blank" 
                  rel="noopener noreferrer"
-                 className="text-sm font-bold text-[#1abf96] hover:underline"
+                 className={`text-sm font-black transition-colors ${activeTab === 'X' ? 'text-slate-800 dark:text-white' : 'text-[#1877F2]'}`}
                >
-                 تابعني لمزيد من الإبداع
+                 {activeTab === 'X' ? "@jilitmostafa" : "Jilit Designer Page"}
                </a>
             </div>
           </div>
