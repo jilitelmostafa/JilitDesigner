@@ -32,10 +32,21 @@ export const DESIGNER_INFO = {
 };
 
 export const CLIENT_LOGOS = [
-  'https://i.imgur.com/06e7h2O.png',
-  'http://flshm.univh2c.ma/convocation/assets/images/logar.PNG',
-  'https://fmpa.uiz.ac.ma/wp-content/uploads/2024/03/Logo-UIZ-blanc1.png',
-  'https://cartomaroc.com/wp-content/uploads/2025/10/CM-1024x334.png'
+  { name: 'Microsoft Teams', url: 'https://assets.asana.biz/m/717f7eae038a9050/original/Microsoft-Teams.svg' },
+  { name: 'Google Drive', url: 'https://assets.asana.biz/m/150594e58876e038/original/Google-Drive.svg' },
+  { name: 'Salesforce', url: 'https://assets.asana.biz/m/324ec5d49800849d/original/Salesforce.svg' },
+  { name: 'Outlook', url: 'https://assets.asana.biz/m/4e953904d53c54e/original/Microsoft-Outlook.svg' },
+  { name: 'Slack', url: 'https://assets.asana.biz/m/46e228ae7dab2f0f/original/Slack.svg' },
+  { name: 'Zendesk', url: 'https://assets.asana.biz/m/571bde6a0b10b80b/original/Zendesk.svg' },
+  { name: 'Tableau', url: 'https://assets.asana.biz/m/49baba0ab294b013/original/Tableau.svg' },
+  { name: 'Microsoft', url: 'https://assets.asana.biz/m/1eac689324ddc14c/original/Microsoft.svg' },
+  { name: 'Nightfall', url: 'https://assets.asana.biz/m/1d7a9d3a9aa4ebd1/original/Nightfall.svg' },
+  { name: 'Vimeo', url: 'https://assets.asana.biz/m/4ad2f1746d10b000/original/Vimeo.svg' },
+  { name: 'Okta', url: 'https://assets.asana.biz/m/328185a11df7a023/original/Okta.svg' },
+  { name: 'Twilio', url: 'https://assets.asana.biz/m/3f9aeea58da0f892/original/logo-app-Twilio.svg' },
+  { name: 'ServiceNow', url: 'https://assets.asana.biz/m/7c2fced93846068b/original/ServiceNow.svg' },
+  { name: 'PagerDuty', url: 'https://assets.asana.biz/m/1adb7fc8783c433/original/Pagerduty.svg' },
+  { name: 'Figma', url: 'https://assets.asana.biz/m/3af9c9731a7fe964/original/Figma.svg' }
 ];
 
 export const SERVICES: Service[] = [

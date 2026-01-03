@@ -4,6 +4,7 @@ import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import Services from './components/Services';
 import Portfolio from './components/Portfolio';
+import Clients from './components/Clients';
 import Contact from './components/Contact';
 import ScrollToTop from './components/ScrollToTop';
 import { DESIGNER_INFO } from './constants';
@@ -42,6 +43,8 @@ const App: React.FC = () => {
           <Services />
           
           <Portfolio />
+
+          <Clients />
           
           {/* Call to Action Banner */}
           <section className="py-20 bg-slate-900 dark:bg-slate-950 text-white">
