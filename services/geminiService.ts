@@ -1,31 +1,26 @@
 
 import { GoogleGenAI } from "@google/genai";
 
-export const getDesignAdvice = async (userMessage: string) => {
-  // استخدام مفتاح البيئة مباشرة عند الاستدعاء لضمان التوافق
-  const apiKey = process.env.API_KEY;
-  
-  if (!apiKey) {
-    return "مرحباً! يبدو أن خدمة المساعد الذكي تحتاج إلى تهيئة المفتاح. يمكنك التواصل مع المصطفى مباشرة عبر واتساب.";
-  }
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
 
+export const getDesignAdvice = async (userMessage: string) => {
   try {
-    const ai = new GoogleGenAI({ apiKey });
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
-      contents: [{ parts: [{ text: userMessage }] }],
+      contents: userMessage,
       config: {
-        systemInstruction: `أنت مساعد ذكي لموقع المصمم المصطفى جليت (Elmostafa JILIT).
-        المصطفى مصمم انفوغرافي محترف في المحمدية، المغرب.
-        يستخدم Photoshop و Illustrator.
-        يصمم: فلايرات، شواهد، أغلفة كتب، وإعلانات دورات.
-        أجب دائماً باللغة العربية بأسلوب مهني وودود.
-        معلومات التواصل: jilitsig@gmail.com | +212 668 09 02 85`,
+        systemInstruction: `You are an AI assistant for Elmostafa JILIT's design portfolio. 
+        Elmostafa is an expert infographic designer based in Mohammedia, Morocco.
+        He uses Photoshop and Illustrator. He designs flyers, certificates, book covers, and course advertisements.
+        Your goal is to answer potential clients' questions about design services, 
+        provide general design tips, and represent Elmostafa professionally.
+        Always answer in Arabic since the primary audience is Arabic-speaking, but be helpful and creative.
+        Contact Info: Email: jilitsig@gmail.com, Phone: +212 668 09 02 85.`,
       },
     });
     return response.text;
   } catch (error) {
-    console.error("Gemini Error:", error);
-    return "عذراً، المساعد منشغل حالياً. يفضل مراسلتي مباشرة عبر الواتساب.";
+    console.error("Error calling Gemini API:", error);
+    return "عذراً، حدث خطأ أثناء معالجة طلبك. يرجى المحاولة لاحقاً.";
   }
 };
