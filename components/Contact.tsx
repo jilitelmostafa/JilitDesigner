@@ -50,6 +50,8 @@ const Contact: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const googleMapsUrl = `https://www.google.com/maps/place/Mohammedia,+Morocco`;
+
   return (
     <section id="contact" className="py-24 bg-white dark:bg-slate-950 transition-colors overflow-hidden">
       <div className="container mx-auto px-6">
@@ -84,15 +86,20 @@ const Contact: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-6 p-6 bg-gray-50 dark:bg-slate-900 rounded-3xl group hover:bg-teal-50 dark:hover:bg-[#1abf96]/5 transition-colors border border-transparent dark:border-white/5">
+              <a 
+                href={googleMapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-6 p-6 bg-gray-50 dark:bg-slate-900 rounded-3xl group hover:bg-teal-50 dark:hover:bg-[#1abf96]/5 transition-colors border border-transparent dark:border-white/5 block"
+              >
                 <div className="w-14 h-14 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center text-[#1abf96] shadow-sm group-hover:bg-[#1abf96] group-hover:text-white transition-all">
                   <MapPin size={24} />
                 </div>
                 <div className="text-right">
                   <p className="text-sm text-gray-400 dark:text-gray-500 font-bold uppercase mb-1">الموقع</p>
-                  <p className="text-lg font-bold text-slate-900 dark:text-white">{DESIGNER_INFO.location}</p>
+                  <p className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-[#1abf96] transition-colors">{DESIGNER_INFO.location}</p>
                 </div>
-              </div>
+              </a>
             </div>
 
             <div className="flex gap-4 justify-end">
