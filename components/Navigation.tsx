@@ -38,7 +38,7 @@ const Navigation: React.FC<NavigationProps> = ({ isDark, toggleTheme }) => {
             ? 'text-[#1abf96]' 
             : 'text-[#1abf96] md:text-white'
         }`}>
-          Jilit<span className="text-[#1abf96]">.</span>
+          JilitDesigner<span className="text-[#1abf96]">.</span>
         </a>
 
         {/* Desktop Links */}

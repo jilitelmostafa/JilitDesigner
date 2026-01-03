@@ -5,7 +5,6 @@ import Hero from './components/Hero';
 import Services from './components/Services';
 import Portfolio from './components/Portfolio';
 import Contact from './components/Contact';
-import ChatAssistant from './components/ChatAssistant';
 import ScrollToTop from './components/ScrollToTop';
 import { DESIGNER_INFO } from './constants';
 
@@ -76,7 +75,6 @@ const App: React.FC = () => {
           </div>
         </footer>
 
-        <ChatAssistant />
         <ScrollToTop />
       </div>
     </div>
